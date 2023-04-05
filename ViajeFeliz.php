@@ -94,3 +94,4 @@ class Viaje {
 }
 // Cambiar los $this-›x por los métodos de acceso
 // Solo el método constructor accede a los atributos con  $this-›x
+// Agregar la posibilidad de modificar datos de los pasajeros (nombre, apellido, DNI)
