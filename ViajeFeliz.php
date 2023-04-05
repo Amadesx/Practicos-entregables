@@ -92,4 +92,5 @@ class Viaje {
 
 }
 }
-// Cambiar los $this-›variable por los métodos de acceso
+// Cambiar los $this-›x por los métodos de acceso
+// Solo el método constructor accede a los atributos con  $this-›x
