@@ -92,3 +92,4 @@ class Viaje {
 
 }
 }
+// Cambiar los $this-›variable por los métodos de acceso
