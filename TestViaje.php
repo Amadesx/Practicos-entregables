@@ -2,7 +2,6 @@
 require_once 'ViajeFeliz.php';
 
 $viaje = new Viaje("", "", "");
-
 while (true) {
     echo "Menu:\n";
     echo "1. Cargar información del viaje\n";
@@ -10,10 +9,13 @@ while (true) {
     echo "3. Ver información del viaje\n";
     echo "4. Agregar pasajero\n";
     echo "5. Eliminar pasajero\n";
-    echo "6. Salir\n";
+    echo "6. Modificar nombre de algun pasajero\n";
+    echo "7. Modificar apellido de algun pasajero\n";
+    echo "8. Modificar DNI de algun pasajero\n";
+    echo "9. Salir\n";
     $opcion = null;
-    while (!in_array($opcion, array("1", "2", "3", "4", "5", "6"))) {
-        echo "Ingrese una opción válida (1-6): ";
+    while (!in_array($opcion, array("1", "2", "3", "4", "5", "6", "7", "8", "9"))) {
+        echo "Ingrese una opción válida (1-9): ";
         $opcion = trim(fgets(STDIN));
     }
     switch ($opcion) {
@@ -58,6 +60,34 @@ while (true) {
             break;
             
         case "6":
+            echo "Ingrese el DNI del pasajero que quiera modificar su nombre: ";
+            $dni = trim(fgets(STDIN));
+            echo "ingrese el nuevo nombre: ";
+            $nuevo_nombre = trim(fgets(STDIN));
+            $viaje->ModificarNombrePasajero($dni, $nuevo_nombre);
+            break;
+        
+        case "7":
+            echo "Ingrese el DNI del pasajero que quiera modificar su apellido: ";
+            $dni = trim(fgets(STDIN));
+            echo "ingrese el nuevo apellido: ";
+            $nuevo_apellido = trim(fgets(STDIN));
+            $viaje->modificarApellidoPasajero($dni, $nuevo_apellido);
+            break;
+
+        case "8":
+            echo "ingrese el DNI del pasajero que quiera modificar: ";
+            $dni_actual = trim(fgets(STDIN));
+            echo "ingrese el DNI modificado: ";
+            $nuevo_dni = trim(fgets(STDIN));
+            $viaje->modificarDniPasajero($dni_actual, $nuevo_dni);
+            break;
+
+        case "9":
             exit();
-    }
+
+
+
+            
+}
 }
