@@ -13,7 +13,7 @@ class Pasajero {
         $this->telefono = $telefono;
         $this->dni = $dni;
     }
-
+    
     public function getNombre() {
         return $this->nombre;
     }
@@ -47,6 +47,6 @@ class Pasajero {
     }
 
     public function __toString() {
-        return "- Nombre: " . $this->nombre ."\n". "- Apellido: " . $this->apellido. "\n" . "- Telefono: " . $this->telefono."\n" . "- DNI: " . $this->dni. "\n";
+        return "- Nombre: " . $this->getNombre() ."\n". "- Apellido: " . $this->getApellido(). "\n" . "- Telefono: " . $this->getTelefono()."\n" . "- DNI: " . $this->getDni(). "\n";
     }
 }
