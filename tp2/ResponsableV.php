@@ -47,6 +47,7 @@ class ResponsableV {
     }
 
     public function __toString() {
-        return "Numero de empleado: " . $this->numeroEmpleado . ", Numero de licencia: " . $this->numeroLicencia . ", Nombre: " . $this->nombre . ", Apellido: " . $this->apellido;
+        return "Numero de empleado: " . $this->getNumeroEmpleado() . ", Numero de licencia: " . $this->getNumeroLicencia() . ", Nombre: " . $this->getNombre() . ", Apellido: " . $this->getApellido();
     }
 }
+
