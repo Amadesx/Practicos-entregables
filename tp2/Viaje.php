@@ -54,21 +54,32 @@ class Viaje {
     public function setResponsable($responsable) {
         $this->responsable = $responsable;
     }
-    
+   // Agrega un nuevo pasajero a la lista de pasajeros si no es que hay uno ya con el mismo DNI 
     public function agregarPasajero($pasajero) {
-        if (count($this->listaPasajeros) < $this->cantidadMaximaPasajeros) {
+        foreach($this->listaPasajeros as $p) {
+            if($p->getDni() == $pasajero->getDni()) {
+                echo "Ya existe un pasajero con ese DNI\n";
+                return false;
+            }
+        }
+    
+        if (count($this->listaPasajeros) < $this->getCantidadMaximaPasajeros()) {
             array_push($this->listaPasajeros, $pasajero);
             return true;
         } else {
+            echo "El viaje ya está completo\n";
             return false;
         }
     }
     
+    
+    
+    
     public function __toString() {
-        $cadena = "Codigo: " . $this->codigo . "\n";
-        $cadena .= "Destino: " . $this->destino . "\n";
-        $cadena .= "Cantidad maxima de pasajeros: " . $this->cantidadMaximaPasajeros . "\n";
-        $cadena .= "Responsable: " . $this->responsable . "\n";
+        $cadena = "Codigo: " . $this->getCodigo() . "\n";
+        $cadena .= "Destino: " . $this->getDestino() . "\n";
+        $cadena .= "Cantidad maxima de pasajeros: " . $this->getCantidadMaximaPasajeros() . "\n";
+        $cadena .= "Responsable: " . $this->getResponsable() . "\n";
         $cadena .= "Lista de pasajeros: \n";
         foreach ($this->listaPasajeros as $pasajero) {
             $cadena .= $pasajero . "\n";
