@@ -1,8 +1,9 @@
 <?php
-include_once "Cliente.php";
-include_once "Venta.php";
-include_once "Moto.php";
-include_once "Empresa.php";
+require_once 'Cliente.php';
+require_once 'Moto.php';
+require_once 'Venta.php';
+require_once 'Empresa.php';
+
 class Moto {
     private $codigo;
     private $costo;
@@ -19,30 +20,7 @@ class Moto {
         $this->porcentajeIncrementoAnual = $porcentajeIncrementoAnual;
         $this->activa = $activa;
     }
-    //Metodos de acceso
-    public function setCodigo($codigo) {
-        $this->codigo = $codigo;
-    }
 
-    public function setCosto($costo) {
-        $this->costo = $costo;
-    }
-
-    public function setAnioFabricacion($anioFabricacion) {
-        $this->anioFabricacion = $anioFabricacion;
-    }
-
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    public function setPorcentajeIncrementoAnual($porcentajeIncrementoAnual) {
-        $this->porcentajeIncrementoAnual = $porcentajeIncrementoAnual;
-    }
-
-    public function setActiva($activa) {
-        $this->activa = $activa;
-    }
     public function getCodigo() {
         return $this->codigo;
     }
@@ -63,20 +41,34 @@ class Moto {
         return $this->porcentajeIncrementoAnual;
     }
 
-    public function getActiva() {
+    public function isActiva() {
         return $this->activa;
     }
-    //los otros metodos
-    public function __toString() {
-        return "Código: " . $this->getCodigo() . ", Costo: " . $this->getCosto() . ", Año de fabricación: " . $this->getAnioFabricacion() . ", Descripción: " . $this->getDescripcion() . ", Porcentaje de incremento anual: " . $this->getPorcentajeIncrementoAnual() . ", Activa: " . $this->getActiva();
+
+/**
+ * Calcula y devuelve el precio de venta de la moto.
+ *
+ * @return float El precio de venta de la moto.
+ */
+public function darPrecioVenta() {
+    if (!$this->isActiva()) {
+        return -1;
     }
-    
-    
-    public function darPrecioVenta() {
-        if (!$this->getActiva()) {
-            return -1;
-        }
-        $anio = date("Y") - $this->getAnioFabricacion();
-        return $this->getCosto() + $this->getCosto() * ($anio * $this->getPorcentajeIncrementoAnual());
+
+    $compra = $this->getCosto();
+    $anio = date('Y') - $this->getAnioFabricacion();
+    $porcentaje = $this->getPorcentajeIncrementoAnual() / 100;
+
+    return $compra + $compra * ($anio * $porcentaje);
+}
+
+
+    public function __toString() {
+        return "Moto: " . $this->getDescripcion() . "\n" .
+               "Código: " . $this->getCodigo() . "\n" .
+               "Costo: $" . $this->getCosto() . "\n" .
+               "Año de fabricación: " . $this->getAnioFabricacion() . "\n" .
+               "Porcentaje de incremento anual: " . $this->getPorcentajeIncrementoAnual() . "%\n" .
+               "Activa: " . ($this->isActiva() ? "Sí" : "No") . "\n";
     }
 }

@@ -1,8 +1,9 @@
 <?php
-include_once "Cliente.php";
-include_once "Venta.php";
-include_once "Moto.php";
-include_once "Empresa.php";
+require_once 'Cliente.php';
+require_once 'Moto.php';
+require_once 'Venta.php';
+require_once 'Empresa.php';
+
 class Venta {
     private $numero;
     private $fecha;
@@ -15,25 +16,6 @@ class Venta {
         $this->fecha = $fecha;
         $this->cliente = $cliente;
         $this->motos = $motos;
-        $this->precioFinal = $precioFinal;
-    }
-    public function setNumero($numero) {
-        $this->numero = $numero;
-    }
-
-    public function setFecha($fecha) {
-        $this->fecha = $fecha;
-    }
-
-    public function setCliente($cliente) {
-        $this->cliente = $cliente;
-    }
-
-    public function setMotos($motos) {
-        $this->motos = $motos;
-    }
-
-    public function setPrecioFinal($precioFinal) {
         $this->precioFinal = $precioFinal;
     }
 
@@ -57,24 +39,37 @@ class Venta {
         return $this->precioFinal;
     }
 
-    public function __toString() {
-        $motosStr = array();
-        foreach ($this->getMotos() as $moto) {
-            $motosStr[] = (string)$moto;
-        }
-        
-        $clienteDadoDeBajaStr = $this->getCliente()->getDadoDeBaja() ? "Sí" : "No";
-        
-        return "Número: " . $this->getNumero() . ", Fecha: " . $this->getFecha() . ", Cliente: " . $this->getCliente()->__toString() . ", Dado de baja: " . $clienteDadoDeBajaStr . ", Motos: " . implode(", ", $motosStr) . ", Precio final: " . $this->getPrecioFinal();
-    }
-    
-    
-    public function incorporarMoto($objMoto) {
-        if (!$objMoto->getActiva()) {
-            return false;
-        }
+/**
+ * Incorpora una moto a la venta.
+ *
+ * @param Moto $objMoto El objeto Moto a incorporar.
+ * @return void
+ */
+public function incorporarMoto($objMoto) {
+    if ($objMoto->isActiva()) {
         $this->motos[] = $objMoto;
         $this->precioFinal += $objMoto->darPrecioVenta();
-        return true;
     }
-            }
+}
+
+
+/**
+ * Devuelve una representación en forma de cadena de la venta.
+ *
+ * @return string Representación en forma de cadena de la venta.
+ */
+public function __toString()
+{
+    $motosStr = '';
+    foreach ($this->getMotos() as $moto) {
+        $motosStr .= $moto->__toString() . "\n";
+    }
+
+    return "Venta número: " . $this->getNumero() . "\n" .
+           "Fecha: " . $this->getFecha() . "\n" .
+           "Cliente: " . $this->getCliente()->__toString() . "\n" .
+           "Motos:\n" . $motosStr .
+           "Precio final: $" . $this->getPrecioFinal() . "\n";
+}
+
+}
